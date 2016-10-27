@@ -6,6 +6,7 @@ import java.util.Vector;
 import org.jibble.pircbot.IrcException;
 import org.jibble.pircbot.PircBot;
 
+import dao.Player;
 import gui.Gui;
 
 public class Bot extends PircBot{
@@ -14,6 +15,9 @@ public class Bot extends PircBot{
 	public String server = "irc.esper.net";
 	public String channel = "#citadelle-test";
 	public Gui gui = null;
+	
+	//game variables
+	Vector<Player> vPlayer = new Vector<Player>();
 	
 	public Bot(Gui gui, String nick){
 		this.setName(nick);
@@ -51,8 +55,19 @@ public class Bot extends PircBot{
 	protected void onMessage(String channel, String sender, String login, String hostname, String message) {
 		// TODO Auto-generated method stub
 		super.onMessage(channel, sender, login, hostname, message);
+		addPlayer(sender, message);
+		
+		
 		if(message.equals("hello")){
 			this.sendMessage(channel, "Hello everybody");
+		}
+	}
+	
+	public void addPlayer(String sender, String message){
+		if(message.equals("!add")){
+			Player player = new Player(sender);
+			vPlayer.add(player);
+			this.sendMessage(channel, sender + " was added to the game!");
 		}
 	}
 	
