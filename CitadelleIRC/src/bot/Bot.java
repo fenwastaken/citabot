@@ -40,7 +40,6 @@ public class Bot extends PircBot{
 		// TODO Auto-generated method stub
 		super.onJoin(channel, sender, login, hostname);
 		if(sender.equals(this.nick)){
-			System.out.println("lol");
 			gui.labRet.setText("Connected on: " + this.server + ", " + this.channel + " as " + this.nick);
 		}
 	}
