@@ -5,18 +5,23 @@ import java.io.IOException;
 import org.jibble.pircbot.IrcException;
 import org.jibble.pircbot.PircBot;
 
+import gui.Gui;
+
 public class Bot extends PircBot{
 
 	public String nick = "citabot";
 	public String server = "irc.esper.net";
 	public String channel = "#citadelle-test";
+	public Gui gui = null;
 	
-	public Bot(){
+	public Bot(Gui gui){
 		this.setName(nick);
 		this.setAutoNickChange(true);
 		try {
 			this.connect(server);
-			this.joinChannel(channel);;
+			this.joinChannel(channel);
+			this.nick = this.getNick();
+			this.gui = gui;
 			System.out.println("connected on " + this.getServer());
 		} catch (IOException | IrcException e) {
 			// TODO Auto-generated catch block
@@ -34,6 +39,10 @@ public class Bot extends PircBot{
 	protected void onJoin(String channel, String sender, String login, String hostname) {
 		// TODO Auto-generated method stub
 		super.onJoin(channel, sender, login, hostname);
+		if(sender.equals(this.nick)){
+			System.out.println("lol");
+			gui.labRet.setText("Connected on: " + this.server + ", " + this.channel + " as " + this.nick);
+		}
 	}
 	
 	@Override
