@@ -14,10 +14,11 @@ public class Bot extends PircBot{
 	public String channel = "#citadelle-test";
 	public Gui gui = null;
 	
-	public Bot(Gui gui){
+	public Bot(Gui gui, String nick){
 		this.setName(nick);
 		this.setAutoNickChange(true);
 		try {
+			this.nick = nick;
 			this.connect(server);
 			this.joinChannel(channel);
 			this.nick = this.getNick();
@@ -25,6 +26,7 @@ public class Bot extends PircBot{
 			System.out.println("connected on " + this.getServer());
 		} catch (IOException | IrcException e) {
 			// TODO Auto-generated catch block
+			System.out.println("Failed to conect as " + nick);
 			e.printStackTrace();
 		}
 	}
