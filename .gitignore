@@ -1,0 +1,28 @@
+# Ignore all dotfiles...
+.*
+# except for .gitignore
+!.gitignore
+
+db
+data
+!conf/initial-data/data
+!conf/initial-data/tests/data
+documents
+eclipse
+lib
+!public/lib
+log
+logs
+tmp
+out
+test-result
+eclipse
+nbproject
+*.iml
+*.ipr
+*.iws
+*.ids
+server.pid
+modules
+cobertura.ser
+atlassian-ide-plugin.xml
