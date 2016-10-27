@@ -1,6 +1,7 @@
 package bot;
 
 import java.io.IOException;
+import java.util.Vector;
 
 import org.jibble.pircbot.IrcException;
 import org.jibble.pircbot.PircBot;
@@ -54,4 +55,23 @@ public class Bot extends PircBot{
 			this.sendMessage(channel, "Hello everybody");
 		}
 	}
+	
+	public static Vector<String> cuter(String message, String separator){
+		Vector<String> vec = new Vector<String>();
+		int start = message.indexOf(separator) + 1;
+		int stop = message.indexOf(separator, start);
+		String ret = "";
+
+		while(stop <= message.length() && stop != -1){
+			ret = message.substring(start, stop);
+			vec.add(ret);
+			start = stop + 1;
+			stop = message.indexOf(separator, start);
+		}
+
+		ret = message.substring(start);
+		vec.add(ret);
+
+		return vec;
+}
 }
