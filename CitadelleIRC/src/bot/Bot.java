@@ -53,5 +53,4 @@ public class Bot extends PircBot{
 			this.sendMessage(channel, "Hello everybody");
 		}
 	}
-	
 }
