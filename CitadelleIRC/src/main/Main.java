@@ -1,6 +1,6 @@
 package main;
 
-import bot.Bot;
+import dao.District;
 import gui.Gui;
 
 public class Main {
