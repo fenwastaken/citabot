@@ -14,6 +14,7 @@ public class Bot extends PircBot{
 	public String nick = "citabot";
 	public String server = "irc.esper.net";
 	public String channel = "#citadelle-test";
+	public String admin;
 	public Gui gui = null;
 	
 	//game variables
@@ -71,7 +72,7 @@ public class Bot extends PircBot{
 		}
 	}
 	
-	public static Vector<String> cuter(String message, String separator){
+	public static Vector<String> cutter(String message, String separator){
 		Vector<String> vec = new Vector<String>();
 		int start = message.indexOf(separator) + 1;
 		int stop = message.indexOf(separator, start);

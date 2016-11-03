@@ -9,4 +9,9 @@ public class District extends Card{
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public void action(){
+		
+	}
+	
 }

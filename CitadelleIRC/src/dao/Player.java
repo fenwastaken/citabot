@@ -6,6 +6,7 @@ package dao;
 public class Player {
 	
 	String name;
+	boolean isKing = false;
 	
 	public Player(String name){
 		this.name = name;
