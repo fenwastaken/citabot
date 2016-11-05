@@ -39,6 +39,8 @@ public class Gui extends JFrame{
 		btOk.setAlignmentX(CENTER_ALIGNMENT);
 		zoneClient.add(btOk);
 		
+		tfName.setText("GameBot");
+		
 		btOk.addActionListener(new appActionListener());
 		
 		tfName.setMaximumSize(new Dimension(250, 25));
