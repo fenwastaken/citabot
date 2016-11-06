@@ -25,10 +25,17 @@ public class Bot extends PircBot{
 	Vector<Charac> vChar = new Vector<Charac>();
 
 	Player currentPlayer = null;
-
+	
+	int currentRole = 1;
+	int turn = 0;
+	
 	boolean isGameOn = false;
 	boolean pickingPhase = false;
-	int turn = 0;
+	boolean rolePhase = false;
+	
+	boolean acted = false;
+	boolean drewCoin = false;
+	
 
 	//--------------------------
 
@@ -189,6 +196,7 @@ public class Bot extends PircBot{
 		isGameOn = false;
 		pickingPhase = false;
 		turn = 0;
+		currentRole = 1;
 
 		vChar.removeAllElements();
 		vPlayer.removeAllElements();
@@ -263,7 +271,7 @@ public class Bot extends PircBot{
 		if(pickingPhase && sender.equals(currentPlayer.getName()) && message.startsWith("!pick ")){
 			int num = Integer.parseInt(cutter(message, " ").elementAt(0));
 			Charac ch = getRoleFromNumber(num);
-			if(ch != null && ch.getOwner().equals("")){
+			if(ch != null && ch.getOwner().equals("") && getRoleFromOwner(sender) == null){
 				ch.setOwner(sender);
 				sendMessage(sender, "you now are the " + ch.getName());
 				nextPlayer();
@@ -274,6 +282,10 @@ public class Bot extends PircBot{
 				}
 				else{
 					sendMessage(channel, "Everyone has a role, let's start the role phase!");
+					pickingPhase = false;
+					rolePhase = true;
+					currentRole = 1;
+					phaseDecider();
 				}
 			}
 			else{
@@ -282,6 +294,112 @@ public class Bot extends PircBot{
 		}
 	}
 
+	public void phaseDecider(){
+		String currentOwner = getRoleFromNumber(currentRole).getOwner();
+		if(rolePhase && currentRole == 1){// assassin phase--------------------------
+			if(!currentOwner.equals("") && !currentOwner.equalsIgnoreCase("removed")){
+				sendMessage(channel, currentOwner + " is the " + getRoleFromNumber(currentRole).getName() + "!");
+				sendMessage(channel, "Who do you wish to assassinate, " + currentOwner + "?");
+			}
+			else{
+				sendMessage(channel, "There is no assassin this turn!");
+				currentRole++;
+				phaseDecider();
+			}
+		}
+		
+		else if(rolePhase && currentRole == 2){ //thief phase--------------------------
+			if(!currentOwner.equals("") && !currentOwner.equalsIgnoreCase("removed")){
+				sendMessage(channel, currentOwner + " is the " + getRoleFromNumber(currentRole).getName() + "!");
+				sendMessage(channel, "Who do you wish to steal from, " + currentOwner + "?");
+			}
+			else{
+				sendMessage(channel, "There is no thief this turn!");
+				currentRole++;
+				phaseDecider();
+			}
+			
+		}
+		
+		else if(rolePhase && currentRole == 3){ //magician phase--------------------------
+			if(!currentOwner.equals("") && !currentOwner.equalsIgnoreCase("removed")){
+				sendMessage(channel, currentOwner + " is the " + getRoleFromNumber(currentRole).getName() + "!");
+				sendMessage(channel, "You can exchange your cards whenever, " + currentOwner + "!");
+			}
+			else{
+				sendMessage(channel, "There is no magician this turn!");
+				currentRole++;
+				phaseDecider();
+			}
+			
+		}
+		
+		else if(rolePhase && currentRole == 4){ // king phase--------------------------
+			if(!currentOwner.equals("") && !currentOwner.equalsIgnoreCase("removed")){
+				sendMessage(channel, currentOwner + " is the " + getRoleFromNumber(currentRole).getName() + "!");
+				sendMessage(channel, "You will now pick your role first, " + currentOwner + "!");
+			}
+			else{
+				sendMessage(channel, "There is no king this turn!");
+				currentRole++;
+				phaseDecider();
+			}
+			
+		}
+		
+		else if(rolePhase && currentRole == 5){ //bishop phase--------------------------
+			if(!currentOwner.equals("") && !currentOwner.equalsIgnoreCase("removed")){
+				sendMessage(channel, currentOwner + " is the " + getRoleFromNumber(currentRole).getName() + "!");
+				sendMessage(channel, "Your citadel can't be attacked, " + currentOwner + "!");
+			}
+			else{
+				sendMessage(channel, "There is no bishop this turn!");
+				currentRole++;
+				phaseDecider();
+			}
+			
+		}
+		
+		else if(rolePhase && currentRole == 6){ //merchant phase--------------------------
+			if(!currentOwner.equals("") && !currentOwner.equalsIgnoreCase("removed")){
+				sendMessage(channel, currentOwner + " is the " + getRoleFromNumber(currentRole).getName() + "!");
+				sendMessage(channel, "You get one free coin, " + currentOwner + "!");
+			}
+			else{
+				sendMessage(channel, "There is no merchant this turn!");
+				currentRole++;
+				phaseDecider();
+			}
+			
+		}
+		
+		else if(rolePhase && currentRole == 7){ //architect phase--------------------------
+			if(!currentOwner.equals("") && !currentOwner.equalsIgnoreCase("removed")){
+				sendMessage(channel, currentOwner + " is the " + getRoleFromNumber(currentRole).getName() + "!");
+				sendMessage(channel, "You get two cards and get to build up to three districts, " + currentOwner + "!");
+			}
+			else{
+				sendMessage(channel, "There is no architect this turn!");
+				currentRole++;
+				phaseDecider();
+			}
+			
+		}
+		
+		else if(rolePhase && currentRole == 8){ //warlord phase--------------------------
+			if(!currentOwner.equals("") && !currentOwner.equalsIgnoreCase("removed")){
+				sendMessage(channel, currentOwner + " is the " + getRoleFromNumber(currentRole).getName() + "!");
+				sendMessage(channel, "You may destruct one district, " + currentOwner + "!");
+			}
+			else{
+				sendMessage(channel, "There is no warlord this turn!");
+				//reset + début du tour suivant
+			}
+			
+		}
+		
+	}
+	
 	public Charac getRoleFromOwner(String name){
 		Charac ch = null;
 		for(Charac chara : vChar){
