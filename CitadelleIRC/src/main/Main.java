@@ -9,7 +9,7 @@ public class Main {
 		// TODO Auto-generated method stub
 
 		
-		Gui gui = new Gui();
+		Gui gui = new Gui("Duskie");
 		gui.setVisible(true);
 		
 	}

@@ -15,8 +15,8 @@ import gui.Gui;
 public class Bot extends PircBot{
 
 	public String nick = "citabot";
-	public String server = "abyss.darkmyst.org";
-	public String channel = "#danaus-ooc";
+	public String server = "irc.esper.net";
+	public String channel = "#citatest";
 	public String admin;
 	public Gui gui = null;
 
@@ -40,7 +40,7 @@ public class Bot extends PircBot{
 	//--------------------------
 
 
-	public Bot(Gui gui, String nick){
+	public Bot(Gui gui, String nick, String admin){
 		this.setName(nick);
 		this.setAutoNickChange(true);
 		try {
@@ -49,7 +49,7 @@ public class Bot extends PircBot{
 			this.joinChannel(channel);
 			this.nick = this.getNick();
 			this.gui = gui;
-			this.admin = "Duskie";
+			this.admin = admin;
 			System.out.println("connected on " + this.getServer());
 		} catch (IOException | IrcException e) {
 			// TODO Auto-generated catch block
@@ -393,7 +393,7 @@ public class Bot extends PircBot{
 			}
 			else{
 				sendMessage(channel, "There is no warlord this turn!");
-				//reset + début du tour suivant
+				//reset + dï¿½but du tour suivant
 			}
 			
 		}

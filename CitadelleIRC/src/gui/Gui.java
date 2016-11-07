@@ -16,11 +16,13 @@ import bot.Bot;
 
 public class Gui extends JFrame{
 
+	public String admin;
 	public JLabel labRet = new JLabel("Pick a name:");
 	public JButton btOk = new JButton("Ok");
 	public JTextField tfName = new JTextField();
 	
-	public Gui(){
+	public Gui(String admin){
+		this.admin = admin;
 		this.setSize(450, 100);
 		this.setTitle("Citabot");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -55,7 +57,7 @@ public class Gui extends JFrame{
 			if(e.getSource() == btOk){
 				
 				String name = tfName.getText();
-				Bot bot = new Bot(Gui.this, name);
+				Bot bot = new Bot(Gui.this, name, admin);
 				Gui.this.btOk.setEnabled(false);
 			}
 		
